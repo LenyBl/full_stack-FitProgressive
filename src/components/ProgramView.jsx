@@ -9,11 +9,11 @@ export default function ProgramView() {
     const [selectedDay, setSelectedDay] = useState(Days[0]);
 
     const Exercises = [
-        { id: 1, name: 'Développé couché', type: 'Machine', series: 4, reps: 8, weight: 80, days: ['Lundi', 'Jeudi'] },
-        { id: 2, name: 'Squat', type: 'Libre', series: 5, reps: 5, weight: 100, days: ['Mercredi'] },
-        { id: 3, name: 'Tractions', type: 'Poids du corps', series: 4, reps: 10, weight: 0, days: ['Vendredi', 'Dimanche'] },
-        { id: 4, name: 'Presse à cuisses', type: 'Machine', series: 4, reps: 12, weight: 120, days: ['Lundi'] },
-        { id: 5, name: 'Rowing barre', type: 'Libre', series: 4, reps: 8, weight: 70, days: ['Mercredi', 'Dimanche'] },
+        { id: 1, name: 'Développé couché', type: 'Machine', Mark: 'TechnoGym', series: 4, reps: 8, weight: 80, weightIncrement: 2.5, days: ['Lundi', 'Vendredi'] },
+        { id: 2, name: 'Squat', type: 'Libre', Mark: null, series: 5, reps: 5, weight: 100, weightIncrement: 5, days: ['Mercredi'] },
+        { id: 3, name: 'Tractions', type: 'Poids du corps', Mark: null, series: 4, reps: 10, weight: 0, weightIncrement: 0, days: ['Lundi', 'Mercredi'] },
+        { id: 4, name: 'Presse à jambes', type: 'Machine', Mark: 'TechnoGym', series: 4, reps: 12, weight: 120, weightIncrement: 5, days: ['Vendredi'] },
+        { id: 5, name: 'Développé militaire', type: 'Libre', Mark: 'Matrix', series: 4, reps: 8, weight: 50, weightIncrement: 2.5, days: ['Dimanche'] },
     ];
 
     return (

@@ -15,13 +15,16 @@ export default function ExerciseCard({ exercise }) {
     return (
         <div className="bg-neutral-900 rounded-2xl p-6 mt-8 shadow-xs border border-neutral-700 lg:w-full">
             <div className="flex items-center mb-4">
-                <div className="bg-neutral-700 rounded-xl  flex items-center w-1/4 justify-center lg:w-1/6 h-20 md:w-1/6 ">
+                <div className="bg-neutral-800 rounded-xl  flex items-center w-1/4 justify-center lg:w-1/6 h-20 md:w-1/6 ">
                     {exercise.type === "Libre" && <Barbell className="text-green-600 w-8 h-8 inline-block m-4" />}
                     {exercise.type === "Poids du corps" && <Person className="text-green-600 w-8 h-8 inline-block m-4" />}
                     {exercise.type === "Machine" && <Gear className="text-green-600 w-8 h-8 inline-block m-4" />}
                 </div>
                 <div className="ml-4 flex flex-col">
-                    <span className="font-medium text-neutral-200 lg:mb-2 md:mb-2">{exercise.name}</span>
+                    <div>
+                        <span className="font-medium text-neutral-200 lg:mb-2 md:mb-2">{exercise.name}</span>
+                        {exercise.Mark && <span className="text-neutral-500 text-sm ml-2">( {exercise.Mark} )</span>}
+                    </div>
                     <span className="text-neutral-400 text-sm">{exercise.type}</span>
                 </div>
                 <div className="ml-auto flex gap-2 lg:gap-4">
@@ -42,11 +45,11 @@ export default function ExerciseCard({ exercise }) {
             <div className="bg-neutral-900 rounded-2xl p-4 mt-4 shadow-xs border border-neutral-700">
                 <span className="text-neutral-400">Charge :</span>
                 <div className="flex justify-between items-center mt-6 mb-4 md:mx-10 lg:mx-10">
-                    <button onClick={() => setWeight(weight - 2.5)} onMouseEnter={() => setHoverMinus(true)} onMouseLeave={() => setHoverMinus(false)} className={hoverMinus ? "bg-green-500 transition p-2 rounded-xl cursor-pointer flex items-center" : "bg-neutral-800 transition p-2 rounded-xl hover:bg-neutral-700 cursor-pointer flex items-center"}>
+                    <button onClick={() => setWeight(weight - exercise.weightIncrement)} onMouseEnter={() => setHoverMinus(true)} onMouseLeave={() => setHoverMinus(false)} className={hoverMinus ? "bg-green-500 transition p-2 rounded-xl cursor-pointer flex items-center" : "bg-neutral-800 transition p-2 rounded-xl hover:bg-neutral-700 cursor-pointer flex items-center"}>
                         <Minus className={hoverMinus ? "text-neutral-900" : "text-neutral-300"} />
                     </button>
                     <span className="text-neutral-200 font-medium text-xl lg:text-2xl mx-4">{weight} kg</span>
-                    <button onClick={() => setWeight(weight + 2.5)} onMouseEnter={() => setHoverPlus(true)} onMouseLeave={() => setHoverPlus(false)} className={hoverPlus ? "bg-green-500 transition p-2 rounded-xl cursor-pointer flex items-center" : "bg-neutral-800 transition p-2 rounded-xl hover:bg-neutral-700 cursor-pointer flex items-center"}>
+                    <button onClick={() => setWeight(weight + exercise.weightIncrement)} onMouseEnter={() => setHoverPlus(true)} onMouseLeave={() => setHoverPlus(false)} className={hoverPlus ? "bg-green-500 transition p-2 rounded-xl cursor-pointer flex items-center" : "bg-neutral-800 transition p-2 rounded-xl hover:bg-neutral-700 cursor-pointer flex items-center"}>
                         <Plus className={hoverPlus ? "text-neutral-900" : "text-neutral-300"} />
                     </button>
                 </div>

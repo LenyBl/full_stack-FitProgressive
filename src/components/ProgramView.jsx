@@ -2,6 +2,7 @@ import { Calendar, Plus, Dumbbell } from 'lucide-react'
 import { useState } from 'react'
 import NoExercise from './NoExercise.jsx'
 import ExerciseCard from './ExerciseCard.jsx'
+import AddExerciseButton from './AddExerciseButton.jsx'
 
 export default function ProgramView() {
 
@@ -36,16 +37,7 @@ export default function ProgramView() {
                     </div>
                 ))}
             </div>
-            <div className="lg:flex lg:justify-start lg:w-1/2 lg:mx-auto">
-                <div className="bg-green-500 rounded-2xl p-4 mt-8 shadow-md shadow-green-500/20 hover:bg-green-600 transition lg:px-14">
-                    <div className="flex items-center justify-center">
-                        <button className="flex items-center gap-2 text-neutral-900 font-medium cursor-pointer">
-                            <Plus className="w-5 h-5" />
-                            Ajouter un exercice
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <AddExerciseButton/>
             {Exercises.filter(exercise => exercise.days.includes(selectedDay)).length === 0 && <NoExercise day={selectedDay} />}
             {Exercises.filter(exercise => exercise.days.includes(selectedDay)).length > 0 && <div className="lg:w-1/2 lg:mx-auto mt-8">
                 {Exercises.filter(exercise => exercise.days.includes(selectedDay)).map((exercise) => (

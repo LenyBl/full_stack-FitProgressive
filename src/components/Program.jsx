@@ -1,5 +1,6 @@
 import { Plus, Trash } from 'lucide-react'
 import { useState } from 'react'
+import AddProgramButton from './AddProgramButton';
 
 export default function Program() {
 
@@ -24,12 +25,7 @@ export default function Program() {
                 <div onMouseEnter={() => setHoverTrash(true)} onMouseLeave={() => setHoverTrash(false)} className="bg-neutral-800 p-3 rounded-xl ml-4 hover:bg-red-600 transition hover:text-neutral-200 cursor-pointer flex items-center">
                     <Trash className={hoverTrash ? 'text-neutral-200' : 'text-neutral-600'} />
                 </div>
-                <div className="bg-green-500 p-3 rounded-xl hover:bg-green-600 cursor-pointer flex items-center ml-4">
-                    <Plus className="text-neutral-900 mr-0 lg:mr-2 md:mr-2" />
-                    <span className="hidden lg:inline md:inline text-neutral-900 font-medium">
-                        Nouveau
-                    </span>
-                </div>
+                <AddProgramButton/>
             </div>
         </div>
     )

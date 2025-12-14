@@ -6,7 +6,7 @@ import ProgramView from './components/ProgramView'
 export default function App() {
 
   return (
-    <div className="bg-neutral-950 min-h-screen w-screen text-neutral-200">
+    <div className="bg-neutral-950 min-h-screen w-full text-neutral-200">
       <Navbar />
       <Program />
       <ProgramView />

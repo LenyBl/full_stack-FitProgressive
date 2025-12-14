@@ -82,7 +82,7 @@ export default function AddProgramButton() {
                         </div>
                         <span className="text-neutral-600 text-center mt-2">{selectedDays.length < 2 ? selectedDays.length + " jour sélectionné" : selectedDays.length + " jours sélectionnés"}</span>
                         <div className="modal-action mt-2">
-                            <button className="bg-green-500 shadow-xl shadow-green-700/20 hover:bg-green-600 text-neutral-900 font-medium px-6 py-3 rounded-xl transition w-full">Créer le programme</button>
+                            <button className="bg-green-500 hover:bg-green-600 shadow-md shadow-green-500/20 transition text-neutral-900 font-medium px-6 py-3 rounded-xl w-full cursor-pointer">Créer le programme</button>
                         </div>
                     </div>
                 </div>

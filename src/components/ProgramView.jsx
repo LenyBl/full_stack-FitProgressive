@@ -1,20 +1,56 @@
-import { Calendar, Plus, Dumbbell } from 'lucide-react'
-import { useState } from 'react'
+import { Calendar, Plus, Dumbbell, Weight } from 'lucide-react'
+import { useState, useEffect } from 'react'
 import NoExercise from './NoExercise.jsx'
 import ExerciseCard from './ExerciseCard.jsx'
 import AddExerciseButton from './AddExerciseButton.jsx'
 
-export default function ProgramView() {
+export default function ProgramView({ programId, programDays }) {
 
-    const Days = ['Lundi', 'Mercredi', 'Vendredi', 'Dimanche'];
+    const Days = programDays;
+
     const [selectedDay, setSelectedDay] = useState(Days[0]);
 
+    if (getCurrentDay() && Days.includes(getCurrentDay())) {
+        useEffect(() => {
+            setSelectedDay(getCurrentDay());
+        }, [Days]);
+    } else {
+        useEffect(() => {
+            setSelectedDay(Days[0]);
+        }, [Days]);
+    }
+
+    function getCurrentDay() {
+        const daysOfWeek = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+        const today = new Date();
+        return daysOfWeek[today.getDay()];
+    }
+
     const Exercises = [
-        { id: 1, name: 'Développé couché', type: 'Machine', Mark: 'TechnoGym', series: 4, reps: 8, weight: 80, weightIncrement: 2.5, days: ['Lundi', 'Vendredi'] },
-        { id: 2, name: 'Squat', type: 'Libre', Mark: null, series: 5, reps: 5, weight: 100, weightIncrement: 5, days: ['Mercredi'] },
-        { id: 3, name: 'Tractions', type: 'Poids du corps', Mark: null, series: 4, reps: 10, weight: 0, weightIncrement: 0, days: ['Lundi', 'Mercredi'] },
-        { id: 4, name: 'Presse à jambes', type: 'Machine', Mark: 'TechnoGym', series: 4, reps: 12, weight: 120, weightIncrement: 5, days: ['Vendredi'] },
-        { id: 5, name: 'Développé militaire', type: 'Libre', Mark: 'Matrix', series: 4, reps: 8, weight: 50, weightIncrement: 2.5, days: ['Dimanche'] },
+        {
+            programId: programId,
+            id: 1,
+            name: 'Développé couché',
+            type: 'Libre',
+            mark: 'TechnoGym',
+            series: 4,
+            reps: 10,
+            weight: 60,
+            weightIncrement: 2.5,
+            days: ['Lundi', 'Jeudi'],
+        },
+        {
+            programId: programId,
+            id: 2,
+            name: 'Squat',
+            type: 'Poids du corps',
+            mark: 'Barbell',
+            series: 4,
+            reps: 8,
+            weight: 80,
+            weightIncrement: 5,
+            days: ['Mardi', 'Vendredi'],
+        },
     ];
 
     return (
@@ -37,7 +73,7 @@ export default function ProgramView() {
                     </div>
                 ))}
             </div>
-            <AddExerciseButton/>
+            <AddExerciseButton />
             {Exercises.filter(exercise => exercise.days.includes(selectedDay)).length === 0 && <NoExercise day={selectedDay} />}
             {Exercises.filter(exercise => exercise.days.includes(selectedDay)).length > 0 && <div className="lg:w-1/2 lg:mx-auto mt-8">
                 {Exercises.filter(exercise => exercise.days.includes(selectedDay)).map((exercise) => (

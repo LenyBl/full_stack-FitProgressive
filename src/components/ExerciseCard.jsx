@@ -1,6 +1,6 @@
 import { Dumbbell, Trash, SquarePen, Plus, Minus } from "lucide-react"
 import { useState } from "react"
-import { Barbell, Person, Gear} from "phosphor-react"
+import { Barbell, Person, Gear } from "phosphor-react"
 
 export default function ExerciseCard({ exercise }) {
 
@@ -21,11 +21,11 @@ export default function ExerciseCard({ exercise }) {
                     {exercise.type === "Machine" && <Gear className="text-green-600 w-8 h-8 inline-block m-4" />}
                 </div>
                 <div className="ml-4 flex flex-col">
-                    <div>
+                    <div className="flex flex-col">
                         <span className="font-medium text-neutral-200 lg:mb-2 md:mb-2">{exercise.name}</span>
-                        {exercise.Mark && <span className="text-neutral-500 text-sm ml-2">( {exercise.Mark} )</span>}
+
                     </div>
-                    <span className="text-neutral-400 text-sm">{exercise.type}</span>
+                    <span className="text-neutral-400 text-sm mt-2">{exercise.type}</span>
                 </div>
                 <div className="ml-auto flex gap-2 lg:gap-4">
                     <div onMouseEnter={() => setHoverEdit(true)} onMouseLeave={() => setHoverEdit(false)} className="bg-neutral-800 p-2 rounded-xl hover:bg-yellow-600 transition cursor-pointer flex items-center">
@@ -36,8 +36,8 @@ export default function ExerciseCard({ exercise }) {
                     </div>
                 </div>
             </div>
-            <div className="flex justify-center items-center">
-                <div className="flex md:flex-row gap-8 md:gap-20 lg:gap-96 justify-center w-full">
+            <div className="flex justify-center items-center mt-2">
+                <div className="flex justify-between items-center w-full lg:w-1/2 md:w-1/2 gap-6">
                     <span className="text-neutral-400">Séries : <span className="text-neutral-200 font-medium">{exercise.series}</span></span>
                     <span className="text-neutral-400">Répétitions : <span className="text-neutral-200 font-medium">{exercise.reps}</span></span>
                 </div>
@@ -53,6 +53,9 @@ export default function ExerciseCard({ exercise }) {
                         <Plus className={hoverPlus ? "text-neutral-900" : "text-neutral-300"} />
                     </button>
                 </div>
+            </div>
+            <div className="flex justify-center items-center mt-6">
+                {exercise.mark && <span className="text-neutral-500 text-sm">( {exercise.mark} )</span>}
             </div>
         </div>
     )

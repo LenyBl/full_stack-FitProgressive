@@ -1,7 +1,7 @@
 import { Plus, Target, Clock, Calendar } from "lucide-react"
 import { useState } from "react"
 
-export default function AddProgramButton() {
+export default function AddProgramButton({text}) {
 
     const Days = [
         'Lundi',
@@ -20,13 +20,13 @@ export default function AddProgramButton() {
             <div className="bg-green-500 p-3 rounded-xl hover:bg-green-600 cursor-pointer flex items-center ml-4" onClick={() => document.getElementById('form_program').showModal()}>
                 <Plus className="text-neutral-900 mr-0 lg:mr-2 md:mr-2" />
                 <span className="hidden lg:inline md:inline text-neutral-900 font-medium">
-                    Nouveau
+                    {text ? text : 'Créer mon premier programme'}
                 </span>
             </div>
             <dialog id="form_program" className="modal">
                 <div className="modal-box bg-neutral-900 border border-neutral-700 shadow-xs shadow-neutral-800">
                     <form method="dialog">
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 hover:bg-neutral-700 hover:text-neutral-200">✕</button>
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 hover:bg-neutral-700 hover:text-neutral-200" onClick={() => setSelectedDays([])}>✕</button>
                     </form>
                     <div className="flex justify-center items-center">
                         <Target className="text-green-600 w-8 h-8 mr-4" />

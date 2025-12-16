@@ -1,6 +1,9 @@
 import { Dumbbell, Trash, SquarePen, Plus, Minus } from "lucide-react"
 import { useState } from "react"
 import { Barbell, Person, Gear } from "phosphor-react"
+import { motion } from "motion/react";
+import DeleteExercise from "./DeleteExercise"
+import EditExercise from "./EditExercise"
 
 export default function ExerciseCard({ exercise }) {
 
@@ -28,12 +31,8 @@ export default function ExerciseCard({ exercise }) {
                     <span className="text-neutral-400 text-sm mt-2">{exercise.type}</span>
                 </div>
                 <div className="ml-auto flex gap-2 lg:gap-4">
-                    <div onMouseEnter={() => setHoverEdit(true)} onMouseLeave={() => setHoverEdit(false)} className="bg-neutral-800 p-2 rounded-xl hover:bg-yellow-600 transition cursor-pointer flex items-center">
-                        <SquarePen className={hoverEdit ? "text-neutral-200" : "text-neutral-400"} />
-                    </div>
-                    <div onMouseEnter={() => setHoverTrash(true)} onMouseLeave={() => setHoverTrash(false)} className="bg-neutral-800 p-2 rounded-xl hover:bg-red-600 transition cursor-pointer flex items-center">
-                        <Trash className={hoverTrash ? "text-neutral-200" : "text-neutral-400"} />
-                    </div>
+                    <EditExercise hoverEdit={hoverEdit} setHoverEdit={setHoverEdit} exerciseId={exercise.id} />
+                    <DeleteExercise hoverTrash={hoverTrash} setHoverTrash={setHoverTrash} exerciseId={exercise.id}/>
                 </div>
             </div>
             <div className="flex justify-center items-center mt-2">
@@ -45,13 +44,13 @@ export default function ExerciseCard({ exercise }) {
             <div className="bg-neutral-900 rounded-2xl p-4 mt-4 shadow-xs border border-neutral-700">
                 <span className="text-neutral-400">Charge :</span>
                 <div className="flex justify-between items-center mt-6 mb-4 md:mx-10 lg:mx-10">
-                    <button onClick={() => setWeight(weight - exercise.weightIncrement)} onMouseEnter={() => setHoverMinus(true)} onMouseLeave={() => setHoverMinus(false)} className={hoverMinus ? "bg-green-500 transition p-2 rounded-xl cursor-pointer flex items-center" : "bg-neutral-800 transition p-2 rounded-xl hover:bg-neutral-700 cursor-pointer flex items-center"}>
+                    <motion.button whileHover={{ scale: 1.05 }}  whileTap={{ scale: 0.95 }} onClick={() => setWeight(weight - exercise.weightIncrement)} onMouseEnter={() => setHoverMinus(true)} onMouseLeave={() => setHoverMinus(false)} className={hoverMinus ? "bg-green-500 p-2 rounded-xl cursor-pointer flex items-center" : "bg-neutral-800 p-2 rounded-xl hover:bg-neutral-700 cursor-pointer flex items-center"}>
                         <Minus className={hoverMinus ? "text-neutral-900" : "text-neutral-300"} />
-                    </button>
+                    </motion.button>
                     <span className="text-neutral-200 font-medium text-xl lg:text-2xl mx-4">{weight} kg</span>
-                    <button onClick={() => setWeight(weight + exercise.weightIncrement)} onMouseEnter={() => setHoverPlus(true)} onMouseLeave={() => setHoverPlus(false)} className={hoverPlus ? "bg-green-500 transition p-2 rounded-xl cursor-pointer flex items-center" : "bg-neutral-800 transition p-2 rounded-xl hover:bg-neutral-700 cursor-pointer flex items-center"}>
+                    <motion.button whileHover={{ scale: 1.05 }}  whileTap={{ scale: 0.95 }} onClick={() => setWeight(weight + exercise.weightIncrement)} onMouseEnter={() => setHoverPlus(true)} onMouseLeave={() => setHoverPlus(false)} className={hoverPlus ? "bg-green-500 p-2 rounded-xl cursor-pointer flex items-center" : "bg-neutral-800 p-2 rounded-xl hover:bg-neutral-700 cursor-pointer flex items-center"}>
                         <Plus className={hoverPlus ? "text-neutral-900" : "text-neutral-300"} />
-                    </button>
+                    </motion.button>
                 </div>
             </div>
             <div className="flex justify-center items-center mt-6">

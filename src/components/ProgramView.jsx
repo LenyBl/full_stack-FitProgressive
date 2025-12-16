@@ -1,5 +1,6 @@
 import { Calendar, Plus, Dumbbell, Weight } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { motion } from 'motion/react'
 import NoExercise from './NoExercise.jsx'
 import ExerciseCard from './ExerciseCard.jsx'
 import AddExerciseButton from './AddExerciseButton.jsx'
@@ -61,16 +62,18 @@ export default function ProgramView({ programId, programDays }) {
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-4 gap-4 lg:w-1/2 lg:mx-auto">
                 {Days.map((day, index) => (
-                    <div key={index} onClick={() => { setSelectedDay(day) }} className={`
+                    <motion.div
+                        whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+                        key={index} onClick={() => { setSelectedDay(day) }} className={`
                             p-4 rounded-xl shadow-xs border cursor-pointer
-                            flex items-center justify-center transition
+                            flex items-center justify-center
                             ${selectedDay === day
-                            ? 'bg-green-500 border-green-600 text-neutral-900 shadow-md shadow-green-500/20'
-                            : 'bg-neutral-900 border-neutral-700 hover:border-green-600 text-neutral-400'
-                        }
+                                ? 'bg-green-500 border-green-600 text-neutral-900 shadow-md shadow-green-500/20'
+                                : 'bg-neutral-900 border-neutral-700 hover:border-green-600 text-neutral-400'
+                            }
                         `}>
                         {day}
-                    </div>
+                    </motion.div>
                 ))}
             </div>
             <AddExerciseButton />

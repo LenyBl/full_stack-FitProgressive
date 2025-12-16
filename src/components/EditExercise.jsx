@@ -1,25 +1,15 @@
-import { Plus, Dumbbell, Calendar } from 'lucide-react'
-import { Barbell, Person, Gear, Hash, TrendUp } from "phosphor-react"
-import { motion } from 'motion/react'
-import { useState } from 'react'
+import { SquarePen, Dumbbell, Plus, } from "lucide-react"
+import { useState } from "react"
+import { Barbell, Person, Gear, Hash, Calendar, TrendUp } from "phosphor-react"
+import { motion } from "motion/react"
 
-export default function AddExerciseButton() {
+export default function EditExercise({ hoverEdit, setHoverEdit, exerciseId }) {
 
     const TypeExercise = [
-        {
-            name: 'Poids du corps',
-            icon: 'Person',
-        },
-        {
-            name: 'Libre',
-            icon: 'Barbell',
-        },
-        {
-            name: 'Machine',
-            icon: 'Gear',
-        },
+        { name: 'Poids du corps', icon: 'Person' },
+        { name: 'Libre', icon: 'Barbell' },
+        { name: 'Machine', icon: 'Gear' },
     ];
-
     const Days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
     const [selectedType, setSelectedType] = useState(null);
@@ -33,24 +23,17 @@ export default function AddExerciseButton() {
 
     return (
         <>
-            <div className="lg:flex lg:justify-start lg:w-1/2 lg:mx-auto">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-green-500 cursor-pointer rounded-2xl p-4 mt-8 shadow-md shadow-green-500/20 hover:bg-green-600 lg:px-14" onClick={() => document.getElementById('exercise_modal').showModal()}>
-                    <div className="flex items-center justify-center">
-                        <button className="flex items-center gap-2 text-neutral-900 font-medium cursor-pointer">
-                            <Plus className="w-5 h-5" />
-                            Ajouter un exercice
-                        </button>
-                    </div>
-                </motion.div>
-            </div>
-            <dialog id="exercise_modal" className="modal">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onMouseEnter={() => setHoverEdit(true)} onMouseLeave={() => setHoverEdit(false)} onClick={() => document.getElementById('edit_exercise_modal').showModal()} className="bg-neutral-800 p-2 rounded-xl hover:bg-yellow-600 cursor-pointer flex items-center">
+                <SquarePen className={hoverEdit ? "text-neutral-200" : "text-neutral-400"} />
+            </motion.div>
+            <dialog id="edit_exercise_modal" className="modal">
                 <div className="modal-box bg-neutral-900 border border-neutral-700 shadow-xs shadow-neutral-800">
                     <form method="dialog">
                         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 hover:bg-neutral-700 hover:text-neutral-200" onClick={() => setSelectedType(null)}>✕</motion.button>
                     </form>
                     <div className="flex justify-center items-center">
                         <Dumbbell className="text-green-600 w-8 h-8 mr-4" />
-                        <h3 className="font-bold text-lg">Ajouter un exercice</h3>
+                        <h3 className="font-bold text-lg">Modifier l'exercice</h3>
                     </div>
                     <hr className="mt-4" />
                     <div className="flex flex-col gap-4 mt-6">
@@ -59,7 +42,9 @@ export default function AddExerciseButton() {
                         <label htmlFor="exercise_type" className="text-neutral-400 self-start">Type d'exercice *</label>
                         <div className="grid grid-cols-3 gap-4">
                             {TypeExercise.map((type, index) => (
-                                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} key={index} className={selectedType === type.name ? "p-6 rounded-xl shadow-xs cursor-pointer flex flex-col items-center justify-center bg-neutral-900 text-neutral-900 border border-green-600" : "p-6 rounded-xl shadow-xs border cursor-pointer flex flex-col items-center justify-center bg-neutral-900 border-neutral-700 hover:border-green-600 text-neutral-400"} onClick={() => setSelectedType(type.name)}>
+                                <motion.div
+                                    whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+                                    key={index} className={selectedType === type.name ? "p-6 rounded-xl shadow-xs cursor-pointer flex flex-col items-center justify-center bg-neutral-900 text-neutral-900 border border-green-600" : "p-6 rounded-xl shadow-xs border cursor-pointer flex flex-col items-center justify-center bg-neutral-900 border-neutral-700 hover:border-green-600 text-neutral-400"} onClick={() => setSelectedType(type.name)}>
                                     {type.icon === 'Person' && <Person className="text-green-600 w-8 h-8 mb-2" />}
                                     {type.icon === 'Barbell' && <Barbell className="text-green-600 w-8 h-8 mb-2" />}
                                     {type.icon === 'Gear' && <Gear className="text-green-600 w-8 h-8 mb-2" />}
@@ -117,7 +102,7 @@ export default function AddExerciseButton() {
                         </div>
                     </div>
                     <div className="modal-action">
-                        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-green-500 hover:bg-green-600 shadow-md shadow-green-500/20 text-neutral-900 font-medium px-6 py-3 rounded-xl w-full cursor-pointer">Ajouter l'exercice</motion.button>
+                        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-green-500 hover:bg-green-600 shadow-md shadow-green-500/20 text-neutral-900 font-medium px-6 py-3 rounded-xl w-full cursor-pointer">Modifier l'exercice</motion.button>
                     </div>
                 </div>
             </dialog>

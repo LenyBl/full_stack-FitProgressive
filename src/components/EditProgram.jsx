@@ -1,8 +1,8 @@
-import { Plus, Target, Clock, Calendar } from "lucide-react"
+import { SquarePen, Plus, Dumbbell, Clock, Calendar, Target } from "lucide-react"
 import { useState } from "react"
 import { motion } from "motion/react"
 
-export default function AddProgramButton({ text }) {
+export default function EditProgram({ hoverEdit, setHoverEdit, programId }) {
 
     const Days = [
         'Lundi',
@@ -19,23 +19,19 @@ export default function AddProgramButton({ text }) {
     const [durationProgram, setDurationProgram] = useState(1);
     const [selectedDays, setSelectedDays] = useState([]);
 
-
     return (
         <>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-green-500 p-3 rounded-xl hover:bg-green-600 cursor-pointer flex items-center ml-4" onClick={() => document.getElementById('form_program').showModal()}>
-                <Plus className="text-neutral-900 mr-0 lg:mr-2 md:mr-2" />
-                <span className="hidden lg:inline md:inline text-neutral-900 font-medium">
-                    {text ? text : 'Créer mon premier programme'}
-                </span>
+            <motion.div whileHover={{ scale: 1.05 }}  whileTap={{ scale: 0.95 }} onMouseEnter={() => setHoverEdit(true)} onMouseLeave={() => setHoverEdit(false)} onClick={() => document.getElementById('edit_program_modal').showModal()} className="bg-neutral-800 ml-2 p-3 rounded-xl hover:bg-yellow-600 cursor-pointer flex items-center">
+                <SquarePen className={hoverEdit ? "text-neutral-200" : "text-neutral-600"} />
             </motion.div>
-            <dialog id="form_program" className="modal">
+            <dialog id="edit_program_modal" className="modal">
                 <div className="modal-box bg-neutral-900 border border-neutral-700 shadow-xs shadow-neutral-800">
                     <form method="dialog">
-                        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 hover:bg-neutral-700 hover:text-neutral-200" onClick={() => setSelectedDays([])}>✕</motion.button>
+                        <motion.button whileHover={{ scale: 1.05 }}  whileTap={{ scale: 0.95 }} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 hover:bg-neutral-700 hover:text-neutral-200" onClick={() => setSelectedDays([])}>✕</motion.button>
                     </form>
                     <div className="flex justify-center items-center">
                         <Target className="text-green-600 w-8 h-8 mr-4" />
-                        <h3 className="font-bold text-lg text-neutral-200">Ajouter un nouveau programme</h3>
+                        <h3 className="font-bold text-lg text-neutral-200">Modifier le programme</h3>
                     </div>
                     <hr className="mt-4" />
                     <div className="mt-6 flex flex-col gap-4">
@@ -63,7 +59,7 @@ export default function AddProgramButton({ text }) {
                         <div className="grid grid-cols-2 gap-3">
                             {Days.map((day, index) => (
                                 <motion.div
-                                    whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+                                    whileHover={{ scale: 1.05 }}  whileTap={{ scale: 0.95 }}
                                     key={index}
                                     onClick={() => {
                                         setSelectedDays(prev =>
@@ -88,7 +84,7 @@ export default function AddProgramButton({ text }) {
                         </div>
                         <span className="text-neutral-600 text-center mt-2">{selectedDays.length < 2 ? selectedDays.length + " jour sélectionné" : selectedDays.length + " jours sélectionnés"}</span>
                         <div className="modal-action mt-2">
-                            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-green-500 hover:bg-green-600 shadow-md shadow-green-500/20 text-neutral-900 font-medium px-6 py-3 rounded-xl w-full cursor-pointer">Créer le programme</motion.button>
+                            <motion.button whileHover={{ scale: 1.05 }}  whileTap={{ scale: 0.95 }} className="bg-green-500 hover:bg-green-600 shadow-md shadow-green-500/20 text-neutral-900 font-medium px-6 py-3 rounded-xl w-full cursor-pointer">Modifier le programme</motion.button>
                         </div>
                     </div>
                 </div>

@@ -22,7 +22,7 @@ export default function AddProgramButton({ text }) {
 
     return (
         <>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-green-500 p-3 rounded-xl hover:bg-green-600 cursor-pointer flex items-center ml-4" onClick={() => document.getElementById('form_program').showModal()}>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-green-500 p-3 rounded-xl hover:bg-green-600 cursor-pointer flex items-center ml-2" onClick={() => document.getElementById('form_program').showModal()}>
                 <Plus className="text-neutral-900 mr-0 lg:mr-2 md:mr-2" />
                 <span className="hidden lg:inline md:inline text-neutral-900 font-medium">
                     {text ? text : 'Créer mon premier programme'}

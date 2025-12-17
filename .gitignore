@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+database/fitprogressive-database.txt
+database/MCD.lo1
+database/MCD.loo
+database/fitprogressive-database.sql

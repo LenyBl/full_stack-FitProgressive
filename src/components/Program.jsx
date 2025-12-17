@@ -1,9 +1,9 @@
 import { Plus, Trash } from 'lucide-react'
 import { useState } from 'react'
-import AddProgramButton from './AddProgramButton';
-import ProgramView from './ProgramView';
-import DeleteProgram from './DeleteProgram';
-import EditProgram from './EditProgram';
+import AddProgramButton from './modals/AddProgramButton.jsx'
+import ProgramView from './ProgramView'
+import DeleteProgram from './modals/DeleteProgram.jsx'
+import EditProgram from './modals/EditProgram.jsx'
 
 export default function Program({ programs: Program }) {
 

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { motion } from 'motion/react'
 import NoExercise from './NoExercise.jsx'
 import ExerciseCard from './ExerciseCard.jsx'
-import AddExerciseButton from './AddExerciseButton.jsx'
+import AddExerciseButton from './modals/AddExerciseButton.jsx'
 
 export default function ProgramView({ programId, programDays }) {
 

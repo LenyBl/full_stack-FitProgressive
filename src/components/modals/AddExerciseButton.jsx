@@ -44,7 +44,7 @@ export default function AddExerciseButton() {
                 </motion.div>
             </div>
             <dialog id="exercise_modal" className="modal">
-                <div className="modal-box bg-neutral-900 border border-neutral-700 shadow-xs shadow-neutral-800">
+                <div className="modal-box bg-neutral-900 border border-neutral-700 shadow-xs shadow-neutral-800 h-5/6 lg:h-8/9 md:h-5/6">
                     <form method="dialog">
                         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 hover:bg-neutral-700 hover:text-neutral-200" onClick={() => setSelectedType(null)}>✕</motion.button>
                     </form>

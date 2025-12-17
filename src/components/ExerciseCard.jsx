@@ -2,8 +2,8 @@ import { Dumbbell, Trash, SquarePen, Plus, Minus } from "lucide-react"
 import { useState } from "react"
 import { Barbell, Person, Gear } from "phosphor-react"
 import { motion } from "motion/react";
-import DeleteExercise from "./DeleteExercise"
-import EditExercise from "./EditExercise"
+import DeleteExercise from "./modals/DeleteExercise"
+import EditExercise from "./modals/EditExercise.jsx"
 
 export default function ExerciseCard({ exercise }) {
 

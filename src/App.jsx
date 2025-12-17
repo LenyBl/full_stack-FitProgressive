@@ -1,8 +1,8 @@
 import './App.css'
 import Navbar from './components/Navbar'
 import Program from './components/Program'
-import ProgramView from './components/ProgramView'
 import NoProgram from './components/NoProgram'
+import NoLogin from './components/NoLogin'
 
 export default function App() {
 
@@ -12,11 +12,21 @@ export default function App() {
     {id: 3, name: 'Full Body', goal: 'Endurance musculaire', duration: 10, days: ['Lundi', 'Mardi', 'Jeudi', 'Vendredi'], createdAt: '2024-03-10'}
   ];
 
+  const isLogin = true;
+
   return (
     <div className="bg-neutral-950 min-h-screen w-full text-neutral-200">
       <Navbar />
       {
-        Programs.length === 0 ? <NoProgram /> : <> <Program programs={Programs} /></>
+        isLogin ? (
+          Programs.length > 0 ? (
+            <Program programs={Programs} />
+          ) : (
+            <NoProgram />
+          )
+        ) : (
+          <NoLogin />
+        )
       }
     </div>
   )

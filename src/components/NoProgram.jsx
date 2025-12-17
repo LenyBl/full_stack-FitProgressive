@@ -1,5 +1,5 @@
 import { Target } from 'lucide-react'
-import AddProgramButton from './AddProgramButton'
+import AddProgramButton from './modals/AddProgramButton.jsx'
 
 export default function NoProgram() {
     return (

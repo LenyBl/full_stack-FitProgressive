@@ -3,7 +3,7 @@ import Navbar from './components/Navbar'
 import Program from './components/Program'
 import NoProgram from './components/NoProgram'
 import NoLogin from './components/NoLogin'
-import FormAccount from './components/auth/FormAccount'
+import FormAuth from './components/auth/FormAuth'
 
 export default function App() {
 
@@ -30,7 +30,7 @@ export default function App() {
             }
           </>
         ) : (
-          <FormAccount />
+          <FormAuth />
         )
       }
     </div>

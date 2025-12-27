@@ -9,7 +9,7 @@ export default function FormAuth() {
   const [isSignIn, setIsSignIn] = useState(true);
 
   return (
-    <div className="flex flex-col items-center justify-center h-lvh px-4">
+    <div className="flex flex-col items-center justify-center px-4">
       {
         isSignIn ? (
           <motion.div

@@ -1,9 +1,23 @@
-import { Dumbbell } from "lucide-react"
-import { useState } from "react"
+import { Dumbbell, Eye, EyeOff } from "lucide-react"
+import { useState, useEffect, use } from "react"
+import { motion } from "framer-motion"
 
-export default function FormSignIn() {
+export default function FormSignIn({ isSignIn, setIsSignIn }) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [showPassword, setShowPassword] = useState(false)
+
+    useEffect(() => {
+        document.title = "Connexion - FitProgressive"
+    }, [])
+
+    useEffect(() => {
+        if (showPassword) {
+            document.getElementById("password").type = "text"
+        } else {
+            document.getElementById("password").type = "password"
+        }
+    }, [showPassword])
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -39,33 +53,57 @@ export default function FormSignIn() {
                         <label className="text-neutral-200" htmlFor="password">
                             Mot de passe
                         </label>
-                        <input
-                            id="password"
-                            type="password"
-                            placeholder="Mot de passe"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="p-3 border border-neutral-700 rounded-lg bg-neutral-900 text-neutral-200 focus:outline-none focus:border-green-500 transition-colors"
-                        />
-                        <span className="text-green-500 font-semibold cursor-pointer text-sm text-center hover:text-green-400 transition-colors">
+                        <div className="relative">
+                            <input
+                                id="password"
+                                type="password"
+                                placeholder="Mot de passe"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="w-full p-3 pr-12 border border-neutral-700 rounded-lg bg-neutral-900 text-neutral-200 focus:outline-none focus:border-green-500 transition-colors"
+                            />
+                            {showPassword ? (
+                                <Eye
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 cursor-pointer hover:text-neutral-300 transition-colors"
+                                    size={20}
+                                    onClick={() => setShowPassword(!showPassword)}
+                                />
+                            ) : (
+                                <EyeOff
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 cursor-pointer hover:text-neutral-300 transition-colors"
+                                    size={20}
+                                    onClick={() => setShowPassword(!showPassword)}
+                                />
+                            )}
+                        </div>
+                        <motion.span
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="text-green-500 font-semibold cursor-pointer text-center hover:text-green-400 transition-colors">
                             Mot de passe oublié ?
-                        </span>
-                        <button
+                        </motion.span>
+                        <motion.button
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.95 }}
                             onClick={handleSubmit}
-                            className="p-3 bg-green-500 text-neutral-950 rounded-lg font-semibold hover:bg-green-600 transition-colors"
+                            className="p-3 bg-green-500 text-neutral-950 rounded-lg font-semibold hover:bg-green-600 transition-colors cursor-pointer "
                         >
                             Se connecter
-                        </button>
+                        </motion.button>
                         <div className="flex items-center gap-2">
                             <hr className="flex-1 border-neutral-800" />
                             <span className="text-neutral-500 text-sm">ou</span>
                             <hr className="flex-1 border-neutral-800" />
                         </div>
-                        <div className="flex items-center justify-center gap-2 ">
+                        <div className="flex items-center justify-center gap-2 text-center">
                             <span className="text-neutral-500 text-sm">Pas encore de compte ?</span>
-                            <span className="text-green-500 font-semibold cursor-pointer hover:text-green-400 transition-colors">
+                            <motion.span
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="text-green-500 font-semibold cursor-pointer hover:text-green-400 transition-colors"
+                                onClick={() => setIsSignIn(false)}>
                                 Créer un compte
-                            </span>
+                            </motion.span>
                         </div>
                     </div>
                 </div>

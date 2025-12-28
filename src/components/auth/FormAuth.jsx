@@ -17,7 +17,7 @@ export default function FormAuth() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <FormSignIn />
+            <FormSignIn isSignIn={isSignIn} setIsSignIn={setIsSignIn} />
           </motion.div>
         ) : (
           <motion.div
@@ -25,7 +25,7 @@ export default function FormAuth() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <FormSignUp />
+            <FormSignUp isSignUp={isSignIn} setIsSignUp={setIsSignIn} />
           </motion.div>
         )
       }

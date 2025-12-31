@@ -1,19 +1,48 @@
 import { Dumbbell, Eye, EyeOff } from "lucide-react"
-import { useState, useEffect, use } from "react"
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
+import axios from "axios"
+import Alert from "../../utils/Alert.jsx"
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext.jsx";
 
 export default function FormSignIn({ isSignIn, setIsSignIn }) {
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
+    const { login } = useContext(AuthContext);
+
+    const API_URL = import.meta.env.VITE_API_URL
 
     useEffect(() => {
         document.title = "Connexion - FitProgressive"
     }, [])
 
+    let navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log("Connexion avec:", email, password)
+        if (!email || !password) {
+            Alert.showAlert("Erreur", "Veuillez remplir tous les champs.", "error");
+            return
+        }
+
+        const authUser = {
+            email: email,
+            password_hash: password
+        }
+
+        axios.post(`${API_URL}auth/signin`, authUser)
+            .then(response => {
+                login(response.data.access_token, response.data.user);
+                Alert.showAlert("Connexion réussie", "Vous êtes maintenant connecté.", "success");
+                navigate("/", { replace: true });
+            })
+            .catch(error => {
+                Alert.showAlert("Erreur", "Email ou mot de passe incorrect.", "error");
+            });
     }
 
     return (

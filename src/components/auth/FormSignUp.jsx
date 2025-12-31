@@ -1,34 +1,52 @@
 import { Dumbbell, Eye, EyeOff } from "lucide-react"
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import Alert from "../../utils/Alert.jsx"
+import axios from "axios"
 
 export default function FormSignUp({ isSignUp, setIsSignUp }) {
+
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     useEffect(() => {
         document.title = "Inscription - FitProgressive"
     }, [])
 
-    useEffect(() => {
-        if (showPassword) {
-            document.getElementById("password").type = "text"
-        } else {
-            document.getElementById("password").type = "password"
-        }
-    }, [showPassword])
-
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log("Inscription avec:", firstName, lastName, email, password)
+        if (!firstName || !lastName || !email || !password) {
+            Alert.showAlert("Erreur", "Veuillez remplir tous les champs.", "error");
+            return;
+        }
+        const name = firstName + " " + lastName;
+        const newUser = {
+            email: email,
+            name: name,
+            password_hash: password
+        };
+        axios.post(API_URL + "users/create", newUser)
+            .then(response => {
+                Alert.showAlert("Inscription réussie", "Votre compte a été créé avec succès.", "success");
+                setIsSignUp(true);
+            })
+            .catch(error => {
+                Alert.showAlert("Erreur", "Un compte avec cet email existe déjà.", "error");
+            });
     }
 
     return (
         <div className="bg-neutral-950 flex items-center justify-center p-4">
-            <div className="flex flex-col items-center w-full">
+            <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="flex flex-col items-center w-full">
                 <div className="flex flex-col items-center">
                     <div className="bg-green-500 p-4 rounded-2xl mb-4 shadow-lg shadow-green-700/50">
                         <Dumbbell className="text-neutral-950" size={36} />
@@ -76,6 +94,7 @@ export default function FormSignUp({ isSignUp, setIsSignUp }) {
                             id="email"
                             type="email"
                             placeholder="Email"
+                            required
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="p-3 border border-neutral-700 rounded-lg bg-neutral-900 text-neutral-200 focus:outline-none focus:border-green-500 transition-colors"
@@ -86,13 +105,14 @@ export default function FormSignUp({ isSignUp, setIsSignUp }) {
                         <div className="relative">
                             <input
                                 id="password"
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 placeholder="Mot de passe"
+                                required
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 className="w-full p-3 pr-12 border border-neutral-700 rounded-lg bg-neutral-900 text-neutral-200 focus:outline-none focus:border-green-500 transition-colors"
                             />
-                            {showPassword ? (
+                            {!showPassword ? (
                                 <Eye
                                     className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 cursor-pointer hover:text-neutral-300 transition-colors"
                                     size={20}
@@ -131,7 +151,7 @@ export default function FormSignUp({ isSignUp, setIsSignUp }) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </div>
     )
 }

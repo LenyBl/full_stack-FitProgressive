@@ -2,6 +2,7 @@ import { Plus, Target, Clock, Calendar } from "lucide-react"
 import { useState, useEffect } from "react"
 import { motion } from "motion/react"
 import api from "../../services/api";
+import Alert from "../../utils/Alert";
 
 export default function AddProgramButton({ text }) {
 
@@ -11,6 +12,8 @@ export default function AddProgramButton({ text }) {
     const [selectedDays, setSelectedDays] = useState([]);
     const [Days, setDays] = useState([]);
 
+    const API_URL = import.meta.env.VITE_API_URL
+
     useEffect(() => {
         api.get(`/days`)
             .then(res => setDays(res.data))
@@ -18,6 +21,33 @@ export default function AddProgramButton({ text }) {
                 console.error(err)
             })
     }, [])
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if (!nameProgram || !goalProgram || !durationProgram || !selectedDays) {
+            Alert.showAlert("Erreur", "Veuillez remplir tous les champs.", "error");
+            return
+        }
+
+        const newProgram = {
+            name: nameProgram,
+            goal: goalProgram,
+            duration: durationProgram,
+            program_days: selectedDays
+        }
+
+        api.post(`${API_URL}programs/create`, newProgram)
+            .then(response => {
+                Alert.showAlert("Programme crée", "Le programme a été créé avec succès !", "success");
+                setNameProgram("");
+                setDurationProgram(0);
+                setGoalProgram("");
+                setSelectedDays([]);
+            })
+            .catch(error => {
+                Alert.showAlert("Erreur", "Email ou mot de passe incorrect.", "error");
+            });
+    }
 
     return (
         <>
@@ -87,7 +117,7 @@ export default function AddProgramButton({ text }) {
                         </div>
                         <span className="text-neutral-600 text-center mt-2">{selectedDays.length < 2 ? selectedDays.length + " jour sélectionné" : selectedDays.length + " jours sélectionnés"}</span>
                         <div className="modal-action mt-2">
-                            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-green-500 hover:bg-green-600 shadow-md shadow-green-500/20 text-neutral-900 font-medium px-6 py-3 rounded-xl w-full cursor-pointer">Créer le programme</motion.button>
+                            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleSubmit} className="bg-green-500 hover:bg-green-600 shadow-md shadow-green-500/20 text-neutral-900 font-medium px-6 py-3 rounded-xl w-full cursor-pointer">Créer le programme</motion.button>
                         </div>
                     </div>
                 </div>

@@ -1,24 +1,23 @@
 import { Plus, Target, Clock, Calendar } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "motion/react"
+import api from "../../services/api";
 
 export default function AddProgramButton({ text }) {
-
-    const Days = [
-        'Lundi',
-        'Mardi',
-        'Mercredi',
-        'Jeudi',
-        'Vendredi',
-        'Samedi',
-        'Dimanche'
-    ];
 
     const [nameProgram, setNameProgram] = useState('');
     const [goalProgram, setGoalProgram] = useState('Prise de masse');
     const [durationProgram, setDurationProgram] = useState(1);
     const [selectedDays, setSelectedDays] = useState([]);
+    const [Days, setDays] = useState([]);
 
+    useEffect(() => {
+        api.get(`/days`)
+            .then(res => setDays(res.data))
+            .catch(err => {
+                console.error(err)
+            })
+    }, [])
 
     return (
         <>
@@ -64,7 +63,7 @@ export default function AddProgramButton({ text }) {
                             {Days.map((day, index) => (
                                 <motion.div
                                     whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-                                    key={index}
+                                    key={day.day_id}
                                     onClick={() => {
                                         setSelectedDays(prev =>
                                             prev.includes(day)
@@ -81,7 +80,7 @@ export default function AddProgramButton({ text }) {
                                         }
                                     `}>
                                     <span className="text-neutral-200 font-medium">
-                                        {day}
+                                        {day.name}
                                     </span>
                                 </motion.div>
                             ))}

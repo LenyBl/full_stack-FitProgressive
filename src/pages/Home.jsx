@@ -10,11 +10,11 @@ export default function App() {
 
   useEffect(() => {
     document.title = "Accueil - FitProgressive"
-      api.get(`/programs/user`)
-        .then(res => setPrograms(res.data))
-        .catch(err => {
-          console.error(err)
-        })
+    api.get(`/programs/user`)
+      .then(res => setPrograms(res.data))
+      .catch(err => {
+        console.error(err)
+      })
   }, [])
 
   return (

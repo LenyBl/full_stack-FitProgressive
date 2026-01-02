@@ -5,21 +5,11 @@ import NoExercise from './NoExercise.jsx'
 import ExerciseCard from './ExerciseCard.jsx'
 import AddExerciseButton from './modals/AddExerciseButton.jsx'
 
-export default function ProgramView({ programId, programDays }) {
+export default function ProgramView({ programId, programDays = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'] }) {
 
     const Days = programDays;
 
     const [selectedDay, setSelectedDay] = useState(Days[0]);
-
-    if (getCurrentDay() && Days.includes(getCurrentDay())) {
-        useEffect(() => {
-            setSelectedDay(getCurrentDay());
-        }, [Days]);
-    } else {
-        useEffect(() => {
-            setSelectedDay(Days[0]);
-        }, [Days]);
-    }
 
     function getCurrentDay() {
         const daysOfWeek = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
